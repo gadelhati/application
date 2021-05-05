@@ -1,9 +1,9 @@
 # Instruções para API _Spring Boot_
 
 ![github](https://img.shields.io/github/stars/gadelhati/demo?style=social "Github")
-![java](https://img.shields.io/badge/java-8-007fff "Java")
-![springboot](https://img.shields.io/badge/springboot-2.4.5-00ff80 "Spring Boot")
-![react](https://img.shields.io/badge/react-17.0.2-40e0d0 "React")
+![java](https://img.shields.io/badge/java-8-6495ED "Java")
+![springboot](https://img.shields.io/badge/springboot-2.4.5-6495ED "Spring Boot")
+![react](https://img.shields.io/badge/react-17.0.2-6495ED "React")
 
 ### Tecnologias utilizadas e conhecimentos necessários:
 
