@@ -155,6 +155,23 @@
 					</excludes>
 				</configuration>
 			</plugin>
+<!--			PLUGGIN PARA RODAR NO HEROKU-->
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>4.0.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
