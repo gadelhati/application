@@ -20,10 +20,10 @@ import javax.validation.constraints.NotNull;
  * @link	www.gadelha.eti.br
  **/
 
-@Audited @AuditTable(value = "fabricante_auditoria")
+@Audited @AuditTable(value = "planet_auditoria")
 @Entity @Table
 @AllArgsConstructor @NoArgsConstructor @Data @EqualsAndHashCode(callSuper = false)
-public class Planeta extends GenericEntity {
+public class Planet extends GenericEntity {
 
 	@NotNull(message = "{name.not.null}") @NotBlank(message = "{name.not.blank}") @Column(unique = true) /*@UniqueElements(message = "{name.not.unique}")*/
 	private String nome;
