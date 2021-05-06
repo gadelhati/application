@@ -11,7 +11,7 @@
 	<groupId>com.institutohidrografico</groupId>
 	<artifactId>application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+<!--	<packaging>war</packaging>-->
 	<name>application</name>
 	<description>Project for Spring Boot by Gadelha</description>
 	<properties>
