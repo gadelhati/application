@@ -26,4 +26,6 @@ public class Tutorial extends GenericEntity {
     private String description;
     @Column
     private boolean published;
+//    @Column
+//    private Audit audit = new Audit();
 }

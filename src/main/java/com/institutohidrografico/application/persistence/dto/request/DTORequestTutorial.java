@@ -15,6 +15,8 @@ public class DTORequestTutorial {
     private String description;
     @Column
     private boolean published;
+//    @Column
+//    private Audit audit;
 
     public Tutorial toObject(){
         return new Tutorial(title, description, published);
