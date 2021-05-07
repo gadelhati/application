@@ -26,12 +26,12 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 //@RequestMapping("/api")
-public class TutorialController {
+public class ControllerTutorial {
 
     public final ServiceTutorial serviceTutorial;
 
     @Autowired
-    private TutorialController(ServiceTutorial serviceTutorial) {
+    private ControllerTutorial(ServiceTutorial serviceTutorial) {
         this.serviceTutorial = serviceTutorial;
     }
 

@@ -23,12 +23,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/tutorialMV")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class TutorialControllerThymeleaf {
+public class ControllerTutorialThymeleaf {
 
     private final ServiceTutorial serviceTutorial;
 
     @Autowired
-    public TutorialControllerThymeleaf(ServiceTutorial serviceTutorial) {
+    public ControllerTutorialThymeleaf(ServiceTutorial serviceTutorial) {
         this.serviceTutorial = serviceTutorial;
     }
 

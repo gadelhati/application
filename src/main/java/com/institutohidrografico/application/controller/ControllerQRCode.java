@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 
 @RestController
-public class QRCodeController {
+public class ControllerQRCode {
 
     private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode.png";
 
