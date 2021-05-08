@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cadastro de calleds</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/png" th:href="@{/imagem/heraldica.ico}"/>
+</head>
+<body>
+<!--<div class="panel panel-default" th:if="${#authorization.expression('hasAuthority(''administrador'')')}">-->
+<div class="panel panel-default">
+    <div th:replace="header :: header" ></div>
+    <div class="panel-heading">
+        <strong>Calleds registration</strong>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" th:object="${called}" th:action="@{/calledMV}" method="POST" style="margin: 10px">
+            <div class="form-group">
+                <fieldset>
+                    <div class="form-group row">
+                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                            <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                <span th:text="${detailedError.message}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>ID</label>
+                            <input type="text" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
+                        </div>
+                    </div>
+<!--                    <div class="form-group row">-->
+<!--                        <div class="col-md-4" th:classappend="${#fields.hasErrors('deliveryman')}? 'has-error'">-->
+<!--                            <label>Deliveryman</label>-->
+<!--                            <select class="form-control input-sm" th:field="*{deliveryman}" cols="5" rows="5">-->
+<!--                                <option-->
+<!--                                        th:each="user: ${users}"-->
+<!--                                        th:value="${deliveryman.id}"-->
+<!--                                        th:text="${deliveryman.name}" ></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-1" >-->
+<!--                            <label>User</label>-->
+<!--                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group row">-->
+<!--                        <div class="col-md-4" th:classappend="${#fields.hasErrors('receiver')}? 'has-error'">-->
+<!--                            <label>Receiver</label>-->
+<!--                            <select class="form-control input-sm" th:field="*{receiver}" cols="5" rows="5">-->
+<!--                                <option-->
+<!--                                        th:each="user: ${users}"-->
+<!--                                        th:value="${user.id}"-->
+<!--                                        th:text="${user.name}" ></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-1" >-->
+<!--                            <label>User</label>-->
+<!--                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('number')}? 'has-error'">
+                            <label>Número do chamado</label>
+                            <input type="text" class="form-control input-sm" th:field="*{number}" autofocus="autofocus" placeholder="Informe o número" maxlength="50"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('number')}? 'has-error'">
+                            <label>Host</label>
+                            <input type="text" class="form-control input-sm" th:field="*{host}" autofocus="autofocus" placeholder="Informe o host" maxlength="50"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group row">
+                <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+                <a th:href="@{/calledMV}" class="btn btn-sm btn-default">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
