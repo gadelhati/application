@@ -2,13 +2,21 @@ package com.institutohidrografico.application.persistence.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity @Data @AllArgsConstructor
+@Audited @AuditTable(value = "user_auditoria")
+@Entity @Data @AllArgsConstructor @NoArgsConstructor
 public class User extends GenericEntity {
     private String name;
     private Date birthdate;
     private Gender gender;
+
+    public User(String name) {
+        this.name = name;
+    }
 }

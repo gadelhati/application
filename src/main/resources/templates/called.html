@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>calleds</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/png" th:href="@{/imagem/heraldica.ico}"/>
+</head>
+<body>
+<!--<div class="panel panel-default" th:if="${#authorization.expression('hasAuthority(''administrador'')')}">-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>calleds</strong>
+    </div>
+    <div class="panel-footer">
+        <div th:replace="header :: header" ></div>
+        <a class="btn btn-sm btn-success" th:href="@{/calledMV/add/}" >New called</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+<!--                    <th>Entrance</th>-->
+<!--                    <th>Exit</th>-->
+<!--                    <th>Deliveryman</th>-->
+<!--                    <th>Receiver</th>-->
+<!--                    <th>Delivery</th>-->
+<!--                    <th>Receivement</th>-->
+                    <th>number</th>
+                    <th>host</th>
+                    <th>QR Code ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:switch="${calleds}">
+                    <h2 th:case="null">Sem resgistros na tabela</h2>
+                    <div th:case="*">
+                        <tr th:each="called : ${calleds}">
+                            <td th:text="${called.id}"></td>
+<!--                            <td th:text="${called.entrance.number}"></td>-->
+<!--                            <td th:text="${called.exit.number}"></td>-->
+    <!--                        <td th:text="${called.deliveryman.name}"></td>-->
+    <!--                        <td th:text="${called.receiver.name}"></td>-->
+<!--                            <td th:text="${#dates.format(called.delivery, 'dd/MM/yyyy')}"></td>-->
+<!--                            <td th:text="${#dates.format(called.receivement, 'dd/MM/yyyy')}"></td>-->
+                            <td th:text="${called.number}"></td>
+                            <td th:text="${called.host}"></td>
+                            <td><img th:src="@{/qrcode/{id}(id=${called.id})}" width="100" height="100"></td>
+                            <td>
+                                <div class="btn-group pull-right">
+                                    <a class="btn btn-sm btn-primary" th:href="@{/calledMV/update/{id}(id=${called.id})}" >Editar</a>
+                                    <a class="delete btn btn-sm btn-danger" th:href="@{/calledMV/delete/{id}(id=${called.id})}">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
