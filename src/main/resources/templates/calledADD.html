@@ -100,9 +100,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-4" th:classappend="${#fields.hasErrors('number')}? 'has-error'">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('host')}? 'has-error'">
                             <label>Host</label>
                             <input type="text" class="form-control input-sm" th:field="*{host}" autofocus="autofocus" placeholder="Host name" maxlength="50"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('delivery')}? 'has-error'">
+                            <label>Delivery</label>
+                            <input type="datetime-local" class="form-control" th:field="*{delivery}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('receivement')}? 'has-error'">
+                            <label>Receivement</label>
+                            <input type="datetime-local" class="form-control" th:field="*{receivement}">
                         </div>
                     </div>
                 </fieldset>

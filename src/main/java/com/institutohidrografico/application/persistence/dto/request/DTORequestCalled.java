@@ -5,6 +5,7 @@ import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,8 +15,8 @@ public class DTORequestCalled {
     private Seal exit;
     private User deliveryman;
     private User receiver;
-    private Date delivery;
-    private Date receivement;
+    private LocalDateTime delivery;
+    private LocalDateTime receivement;
     private String number;
     private String host;
 
