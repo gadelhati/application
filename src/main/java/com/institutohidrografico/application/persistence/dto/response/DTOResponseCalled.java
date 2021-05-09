@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -16,8 +17,8 @@ public class DTOResponseCalled {
     private Seal exit;
     private User deliveryman;
     private User receiver;
-    private Date delivery;
-    private Date receivement;
+    private LocalDateTime delivery;
+    private LocalDateTime receivement;
     private String number;
     private String host;
 

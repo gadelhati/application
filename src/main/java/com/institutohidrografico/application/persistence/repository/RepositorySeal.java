@@ -19,5 +19,6 @@ public interface RepositorySeal extends JpaRepository<Seal, UUID> {
     //QUERIES PERSONALIZADAS
     Optional<Seal> findByNumber(String number);
     boolean existsByNumber(String number);
+    List<Seal> findByBrokenFalse();
     List<Seal> findByNumberContainingIgnoreCaseOrderByNumberAsc(String number);
 }

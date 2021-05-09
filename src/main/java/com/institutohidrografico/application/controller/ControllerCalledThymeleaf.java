@@ -3,6 +3,7 @@ package com.institutohidrografico.application.support.called.controller;
 import com.institutohidrografico.application.persistence.dto.request.DTORequestCalled;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import com.institutohidrografico.application.service.ServiceCalled;
+import com.institutohidrografico.application.service.ServiceSeal;
 import com.institutohidrografico.application.service.ServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -28,11 +29,13 @@ public class ControllerCalledThymeleaf {
 
     private final ServiceCalled serviceCalled;
     private final ServiceUser serviceUser;
+    private final ServiceSeal serviceSeal;
 
     @Autowired
-    public ControllerCalledThymeleaf(ServiceCalled serviceCalled, ServiceUser serviceUser) {
+    public ControllerCalledThymeleaf(ServiceCalled serviceCalled, ServiceUser serviceUser, ServiceSeal serviceSeal) {
         this.serviceCalled = serviceCalled;
         this.serviceUser = serviceUser;
+        this.serviceSeal = serviceSeal;
     }
 
     @PostMapping
@@ -63,7 +66,10 @@ public class ControllerCalledThymeleaf {
     public ModelAndView add(Called called) {
         ModelAndView modelAndView = new ModelAndView("/calledADD");
         modelAndView.addObject("called", called);
-        modelAndView.addObject("users", serviceUser.retrieve());
+        modelAndView.addObject("entrances", serviceSeal.brokenFalse());
+        modelAndView.addObject("exits", serviceSeal.brokenFalse());
+        modelAndView.addObject("deliverymans", serviceUser.retrieve());
+        modelAndView.addObject("receivers", serviceUser.retrieve());
         return modelAndView;
     }
     @GetMapping("/delete/{id}")

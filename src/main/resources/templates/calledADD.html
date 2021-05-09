@@ -33,53 +33,95 @@
                             <input type="text" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
                         </div>
                     </div>
-<!--                    <div class="form-group row">-->
-<!--                        <div class="col-md-4" th:classappend="${#fields.hasErrors('deliveryman')}? 'has-error'">-->
-<!--                            <label>Deliveryman</label>-->
-<!--                            <select class="form-control input-sm" th:field="*{deliveryman}" cols="5" rows="5">-->
-<!--                                <option-->
-<!--                                        th:each="user: ${users}"-->
-<!--                                        th:value="${deliveryman.id}"-->
-<!--                                        th:text="${deliveryman.name}" ></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-1" >-->
-<!--                            <label>User</label>-->
-<!--                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="form-group row">-->
-<!--                        <div class="col-md-4" th:classappend="${#fields.hasErrors('receiver')}? 'has-error'">-->
-<!--                            <label>Receiver</label>-->
-<!--                            <select class="form-control input-sm" th:field="*{receiver}" cols="5" rows="5">-->
-<!--                                <option-->
-<!--                                        th:each="user: ${users}"-->
-<!--                                        th:value="${user.id}"-->
-<!--                                        th:text="${user.name}" ></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-1" >-->
-<!--                            <label>User</label>-->
-<!--                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="form-group row">
-                        <div class="col-md-4" th:classappend="${#fields.hasErrors('number')}? 'has-error'">
-                            <label>Número do chamado</label>
-                            <input type="text" class="form-control input-sm" th:field="*{number}" autofocus="autofocus" placeholder="Informe o número" maxlength="50"/>
+                        <div class="col-md-3" th:classappend="${#fields.hasErrors('entrance')}? 'has-error'">
+                            <label>Entrance</label>
+                            <select class="form-control input-sm" th:field="*{entrance}" cols="5" rows="5">
+                                <option
+                                        th:each="entrance: ${entrances}"
+                                        th:value="${entrance.id}"
+                                        th:text="${entrance.number}" ></option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" >
+                            <label>Seal</label>
+                            <a class="btn btn-sm btn-primary" th:href="@{/sealMV/add/}" >New</a>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3" th:classappend="${#fields.hasErrors('exit')}? 'has-error'">
+                            <label>Exit</label>
+                            <select class="form-control input-sm" th:field="*{exit}" cols="5" rows="5">
+                                <option
+                                        th:each="exit: ${exits}"
+                                        th:value="${exit.id}"
+                                        th:text="${exit.number}" ></option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" >
+                            <label>Seal</label>
+                            <a class="btn btn-sm btn-primary" th:href="@{/sealMV/add/}" >New</a>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3" th:classappend="${#fields.hasErrors('deliveryman')}? 'has-error'">
+                            <label>Deliveryman</label>
+                            <select class="form-control input-sm" th:field="*{deliveryman}" cols="5" rows="5">
+                                <option
+                                        th:each="deliveryman: ${deliverymans}"
+                                        th:value="${deliveryman.id}"
+                                        th:text="${deliveryman.name}" ></option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" >
+                            <label>User</label>
+                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3" th:classappend="${#fields.hasErrors('receiver')}? 'has-error'">
+                            <label>Receiver</label>
+                            <select class="form-control input-sm" th:field="*{receiver}" cols="5" rows="5">
+                                <option
+                                        th:each="receiver: ${receivers}"
+                                        th:value="${receiver.id}"
+                                        th:text="${receiver.name}" ></option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" >
+                            <label>User</label>
+                            <a class="btn btn-sm btn-primary" th:href="@{/userMV/add/}" >New</a>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('number')}? 'has-error'">
+                            <label>Called number</label>
+                            <input type="text" class="form-control input-sm" th:field="*{number}" autofocus="autofocus" placeholder="Called number" maxlength="50"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('host')}? 'has-error'">
                             <label>Host</label>
-                            <input type="text" class="form-control input-sm" th:field="*{host}" autofocus="autofocus" placeholder="Informe o host" maxlength="50"/>
+                            <input type="text" class="form-control input-sm" th:field="*{host}" autofocus="autofocus" placeholder="Host name" maxlength="50"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('delivery')}? 'has-error'">
+                            <label>Delivery</label>
+                            <input type="datetime-local" class="form-control" th:field="*{delivery}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('receivement')}? 'has-error'">
+                            <label>Receivement</label>
+                            <input type="datetime-local" class="form-control" th:field="*{receivement}">
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="form-group row">
-                <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-                <a th:href="@{/calledMV}" class="btn btn-sm btn-default">Cancelar</a>
+                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                <a th:href="@{/calledMV}" class="btn btn-sm btn-default">Cancel</a>
             </div>
         </form>
     </div>

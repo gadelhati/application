@@ -25,12 +25,12 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-<!--                    <th>Entrance</th>-->
-<!--                    <th>Exit</th>-->
-<!--                    <th>Deliveryman</th>-->
-<!--                    <th>Receiver</th>-->
-<!--                    <th>Delivery</th>-->
-<!--                    <th>Receivement</th>-->
+                    <th>Entrance</th>
+                    <th>Exit</th>
+                    <th>Deliveryman</th>
+                    <th>Receiver</th>
+                    <th>Delivery</th>
+                    <th>Receivement</th>
                     <th>number</th>
                     <th>host</th>
                     <th>QR Code ID</th>
@@ -43,12 +43,12 @@
                     <div th:case="*">
                         <tr th:each="called : ${calleds}">
                             <td th:text="${called.id}"></td>
-<!--                            <td th:text="${called.entrance.number}"></td>-->
-<!--                            <td th:text="${called.exit.number}"></td>-->
-    <!--                        <td th:text="${called.deliveryman.name}"></td>-->
-    <!--                        <td th:text="${called.receiver.name}"></td>-->
-<!--                            <td th:text="${#dates.format(called.delivery, 'dd/MM/yyyy')}"></td>-->
-<!--                            <td th:text="${#dates.format(called.receivement, 'dd/MM/yyyy')}"></td>-->
+                            <td th:text="${called.entrance!=null? called.entrance.number:'not registered'}"></td>
+                            <td th:text="${called.exit!=null? called.exit.number:'not registered'}"></td>
+                            <td th:text="${called.deliveryman!=null? called.deliveryman.name:'not registred'}"></td>
+                            <td th:text="${called.receiver!=null? called.receiver.name:'not registred'}"></td>
+                            <td th:text="${called.delivery!=null? called.delivery:'not registred'}"></td>
+                            <td th:text="${called.receivement!=null? called.receivement:'not registred'}"></td>
                             <td th:text="${called.number}"></td>
                             <td th:text="${called.host}"></td>
                             <td><img th:src="@{/qrcode/{id}(id=${called.id})}" width="100" height="100"></td>

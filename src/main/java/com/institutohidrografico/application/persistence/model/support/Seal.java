@@ -23,4 +23,8 @@ import javax.persistence.Table;
 public class Seal extends GenericEntity {
     @Column
     private String number;
+    @Column
+    private String color;
+    @Column
+    private boolean broken;
 }

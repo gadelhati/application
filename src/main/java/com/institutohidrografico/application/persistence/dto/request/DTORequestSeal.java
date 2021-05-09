@@ -11,8 +11,10 @@ public class DTORequestSeal {
 
     @NotNull(message = "{number.not.null}") @NotBlank(message = "{number.not.blank}")
     private String number;
+    private String color;
+    private boolean broken;
 
     public Seal toObject(){
-        return new Seal(number);
+        return new Seal(number, color, broken);
     }
 }

@@ -9,8 +9,10 @@ import lombok.Getter;
 public class DTOResponseSeal {
 
     private String number;
+    private String color;
+    private boolean broken;
 
     public static DTOResponseSeal toDTO(Seal seal) {
-        return new DTOResponseSeal(seal.getNumber());
+        return new DTOResponseSeal(seal.getNumber(), seal.getColor(), seal.isBroken());
     }
 }

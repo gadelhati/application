@@ -38,6 +38,18 @@
                             <input type="text" class="form-control input-sm" th:field="*{number}" cols="5" rows="5" placeholder="Number"></textarea>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Color</label>
+                            <input type="color" class="form-control input-sm" th:field="*{color}" cols="5" rows="5" placeholder="Color"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('broken')}? 'has-error'">
+                            <label th:for="broken">Broken</label>
+                            <input type="checkbox" class="form-control input-sm" th:field="*{broken}" cols="5" rows="5" />
+                        </div>
+                    </div>
                 </fieldset>
             </div>
             <div class="form-group row">
