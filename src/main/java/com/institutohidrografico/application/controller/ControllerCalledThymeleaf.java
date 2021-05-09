@@ -1,10 +1,11 @@
-package com.institutohidrografico.application.support.called.controller;
+package com.institutohidrografico.application.controller;
 
 import com.institutohidrografico.application.persistence.dto.request.DTORequestCalled;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import com.institutohidrografico.application.service.ServiceCalled;
 import com.institutohidrografico.application.service.ServiceSeal;
 import com.institutohidrografico.application.service.ServiceUser;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,18 +26,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/calledMV")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerCalledThymeleaf {
 
     private final ServiceCalled serviceCalled;
     private final ServiceUser serviceUser;
     private final ServiceSeal serviceSeal;
-
-    @Autowired
-    public ControllerCalledThymeleaf(ServiceCalled serviceCalled, ServiceUser serviceUser, ServiceSeal serviceSeal) {
-        this.serviceCalled = serviceCalled;
-        this.serviceUser = serviceUser;
-        this.serviceSeal = serviceSeal;
-    }
 
     @PostMapping
     public ModelAndView create(@Valid Called Called, BindingResult bindingResult) {

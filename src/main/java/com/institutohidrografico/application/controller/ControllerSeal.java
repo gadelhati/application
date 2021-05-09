@@ -4,6 +4,7 @@ import com.institutohidrografico.application.persistence.dto.request.DTORequestS
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.service.ServiceSeal;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/seal")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerSeal {
 
     public final ServiceSeal serviceSeal;
-
-    @Autowired
-    private ControllerSeal(ServiceSeal serviceSeal) {
-        this.serviceSeal = serviceSeal;
-    }
 
     @PostMapping
     public ResponseEntity<DTOResponseSeal> create(@RequestBody @Valid DTORequestSeal dtoRequestSeal) {

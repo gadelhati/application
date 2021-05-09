@@ -4,6 +4,7 @@ import com.institutohidrografico.application.persistence.dto.request.DTORequestT
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseTutorial;
 import com.institutohidrografico.application.persistence.model.Tutorial;
 import com.institutohidrografico.application.service.ServiceTutorial;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +27,10 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 //@RequestMapping("/api")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerTutorial {
 
     public final ServiceTutorial serviceTutorial;
-
-    @Autowired
-    private ControllerTutorial(ServiceTutorial serviceTutorial) {
-        this.serviceTutorial = serviceTutorial;
-    }
 
     @PostMapping("/tutorial")
     public ResponseEntity<DTOResponseTutorial> create(@RequestBody @Valid DTORequestTutorial dtoRequestTutorial) {

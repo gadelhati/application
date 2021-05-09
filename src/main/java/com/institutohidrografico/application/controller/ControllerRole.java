@@ -4,6 +4,7 @@ import com.institutohidrografico.application.persistence.dto.request.DTORequestR
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseRole;
 import com.institutohidrografico.application.persistence.model.Role;
 import com.institutohidrografico.application.service.ServiceRole;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerRole {
 
     public final ServiceRole serviceRole;
-
-    @Autowired
-    private ControllerRole(ServiceRole serviceRole) {
-        this.serviceRole = serviceRole;
-    }
 
     @PostMapping("/role")
     public ResponseEntity<DTOResponseRole> create(@RequestBody @Valid DTORequestRole dtoRequestRole) {
