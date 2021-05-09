@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>seals</title>
+    <title>Seals</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                 <div th:switch="${seals}">
-                    <h2 th:case="null">Sem resgistros na tabela</h2>
+                    <h2 th:case="null">No entries in the table</h2>
                     <div th:case="*">
                         <tr th:each="seal : ${seals}">
                             <td th:text="${seal.number}"></td>

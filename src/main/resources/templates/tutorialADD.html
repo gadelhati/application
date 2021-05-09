@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Cadastro de tutorials</title>
+    <title>Tutorials registration</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" type="image/png" th:href="@{/imagem/heraldica.ico}"/>
@@ -13,7 +13,7 @@
 <!--<div class="panel panel-default" th:if="${#authorization.expression('hasAuthority(''administrador'')')}">-->
     <div th:replace="header :: header" ></div>
     <div class="panel-heading">
-        <strong>Cadastro de tutorials</strong>
+        <strong>Tutorials registration</strong>
     </div>
     <div class="panel-body">
         <form class="form-horizontal" th:object="${tutorial}" th:action="@{/tutorialMV}" method="POST" style="margin: 10px">

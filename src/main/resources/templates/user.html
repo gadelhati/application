@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>users</title>
+    <title>Users</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" type="image/png" th:href="@{/imagem/heraldica.ico}"/>
@@ -13,7 +13,7 @@
 <!--<div class="panel panel-default" th:if="${#authorization.expression('hasAuthority(''administrador'')')}">-->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>users</strong>
+        <strong>Users</strong>
     </div>
     <div class="panel-footer">
         <div th:replace="header :: header" ></div>
@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                 <div th:switch="${users}">
-                    <h2 th:case="null">Sem resgistros na tabela</h2>
+                    <h2 th:case="null">No entries in the table</h2>
                     <div th:case="*">
                         <tr th:each="user : ${users}">
                             <td th:text="${user.name}"></td>
