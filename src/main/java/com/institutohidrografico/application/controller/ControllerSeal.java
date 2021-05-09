@@ -49,7 +49,7 @@ public class ControllerSeal {
             if (name == null)
                 serviceSeal.retrieve().forEach(Seals::add);
             else
-                serviceSeal.nameContaining(name).forEach(Seals::add);
+                serviceSeal.numberContaining(name).forEach(Seals::add);
             if (Seals.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }

@@ -38,10 +38,10 @@ public class ServiceSeal implements GenericDAO<Seal, UUID> {
         repositorySeal.deleteAll();
     }
 
-    public List<Seal> nameContaining(String name) { return repositorySeal.findByNumberContainingIgnoreCaseOrderByNumberAsc(name); }
+    public List<Seal> numberContaining(String name) { return repositorySeal.findByNumberContainingIgnoreCaseOrderByNumberAsc(name); }
     public Optional<Seal> retrieveOptional(UUID id) { return repositorySeal.findById(id); }
-    public Optional<Seal> retrieveOptionalByNome(String Seal) { return repositorySeal.findByNumber(Seal); }
-    public boolean isNameValid(String value) {
+    public Optional<Seal> retrieveOptionalByNumber(String Seal) { return repositorySeal.findByNumber(Seal); }
+    public boolean isNumberValid(String value) {
         return repositorySeal.existsByNumber(value);
     }
     public List<Seal> brokenFalse() { return repositorySeal.findByBrokenFalse(); }
