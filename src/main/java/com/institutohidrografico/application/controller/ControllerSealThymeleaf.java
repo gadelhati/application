@@ -32,7 +32,7 @@ public class ControllerSealThymeleaf {
         this.serviceSeal = serviceSeal;
     }
 
-    @PostMapping("/createDTO")
+    @PostMapping
     public ModelAndView create(@Valid Seal seal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return add(seal);
@@ -40,7 +40,7 @@ public class ControllerSealThymeleaf {
         serviceSeal.create(seal);
         return findAll();
     }
-    @PostMapping
+    @PostMapping("/createDTO")
     public ModelAndView create(@Valid DTORequestSeal seal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return add(seal.toObject());
