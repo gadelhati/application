@@ -44,4 +44,5 @@ public class ServiceSeal implements GenericDAO<Seal, UUID> {
     public boolean isNameValid(String value) {
         return repositorySeal.existsByNumber(value);
     }
+    public List<Seal> brokenFalse() { return repositorySeal.findByBrokenFalse(); }
 }
