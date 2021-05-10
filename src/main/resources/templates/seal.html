@@ -34,7 +34,7 @@
                         <tr th:each="seal : ${seals}">
                             <td th:text="${seal.number}"></td>
                             <td th:text="${seal.color}"></td>
-                            <td th:text="${seal.broken?'Sim':'Não'}"></td>
+                            <td th:text="${seal.broken?'Yes':'No'}"></td>
                             <td>
                                 <div class="btn-group pull-right">
                                     <a class="btn btn-sm btn-primary" th:href="@{/sealMV/update/{id}(id=${seal.id})}" >Editar</a>
