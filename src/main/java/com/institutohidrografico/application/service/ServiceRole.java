@@ -2,6 +2,7 @@ package com.institutohidrografico.application.service;
 
 import com.institutohidrografico.application.persistence.model.Role;
 import com.institutohidrografico.application.persistence.repository.RepositoryRole;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,9 @@ import java.util.UUID;
  * @link	www.gadelha.eti.br
  **/
 
-@Service
+@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ServiceRole implements GenericDAO<Role, UUID> {
 
-    @Autowired
     private RepositoryRole repositoryRole;
 
     public Role create(Role objeto) {  return repositoryRole.save(objeto);}

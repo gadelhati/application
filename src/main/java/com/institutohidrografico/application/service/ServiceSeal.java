@@ -3,6 +3,7 @@ package com.institutohidrografico.application.service;
 import com.institutohidrografico.application.service.GenericDAO;
 import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.persistence.repository.RepositorySeal;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,10 @@ import java.util.UUID;
  * @link	www.gadelha.eti.br
  **/
 
-@Service
+@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ServiceSeal implements GenericDAO<Seal, UUID> {
 
-    @Autowired
-    private RepositorySeal repositorySeal;
+    private final RepositorySeal repositorySeal;
 
     public Seal create(Seal objeto) {  return repositorySeal.save(objeto);}
     public List<Seal> retrieve() {

@@ -3,6 +3,7 @@ package com.institutohidrografico.application.controller;
 import com.institutohidrografico.application.persistence.dto.request.DTORequestSeal;
 import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.service.ServiceSeal;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +24,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/sealMV")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerSealThymeleaf {
 
     private final ServiceSeal serviceSeal;
-
-    @Autowired
-    public ControllerSealThymeleaf(ServiceSeal serviceSeal) {
-        this.serviceSeal = serviceSeal;
-    }
 
     @PostMapping
     public ModelAndView create(@Valid Seal seal, BindingResult bindingResult) {

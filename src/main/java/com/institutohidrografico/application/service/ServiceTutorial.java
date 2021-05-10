@@ -2,6 +2,7 @@ package com.institutohidrografico.application.service;
 
 import com.institutohidrografico.application.persistence.model.Tutorial;
 import com.institutohidrografico.application.persistence.repository.RepositoryTutorial;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +18,10 @@ import java.util.UUID;
  * @link	www.gadelha.eti.br
  **/
 
-@Service
+@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ServiceTutorial implements GenericDAO<Tutorial, UUID> {
 
     private final RepositoryTutorial tutorialRepository;
-
-    @Autowired
-    public ServiceTutorial(RepositoryTutorial tutorialRepository) {
-        this.tutorialRepository = tutorialRepository;
-    }
 
     public Tutorial create(Tutorial objeto) {
         return tutorialRepository.save(objeto);

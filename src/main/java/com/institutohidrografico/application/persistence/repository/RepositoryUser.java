@@ -17,7 +17,7 @@ import java.util.UUID;
 @Repository
 public interface RepositoryUser extends JpaRepository<User, UUID> {
     //QUERIES PERSONALIZADAS
-    Optional<User> findByName(String name);
-    boolean existsByName(String name);
-    List<User> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
+    Optional<User> findByUsername(String name);
+    boolean existsByUsername(String name);
+    List<User> findByUsernameContainingIgnoreCaseOrderByUsernameAsc(String name);
 }

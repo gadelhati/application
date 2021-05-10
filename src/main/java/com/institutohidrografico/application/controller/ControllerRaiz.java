@@ -1,6 +1,7 @@
 package com.institutohidrografico.application.controller;
 
 import com.institutohidrografico.application.service.ServiceTutorial;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,14 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping(value= "/")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerRaiz {
 
     private final ServiceTutorial serviceTutorial;
-
-    @Autowired
-    public ControllerRaiz(ServiceTutorial serviceTutorial) {
-        this.serviceTutorial = serviceTutorial;
-    }
 
     @GetMapping
     public ModelAndView findAll() {
