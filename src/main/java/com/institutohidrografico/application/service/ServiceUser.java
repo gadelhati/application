@@ -1,8 +1,8 @@
 package com.institutohidrografico.application.service;
 
-import com.institutohidrografico.application.service.GenericDAO;
 import com.institutohidrografico.application.persistence.model.User;
 import com.institutohidrografico.application.persistence.repository.RepositoryUser;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,10 @@ import java.util.UUID;
  * @link	www.gadelha.eti.br
  **/
 
-@Service
+@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ServiceUser implements GenericDAO<User, UUID> {
 
-    @Autowired
-    private RepositoryUser repositoryUser;
+    private final RepositoryUser repositoryUser;
 
     public User create(User objeto) {  return repositoryUser.save(objeto);}
     public List<User> retrieve() {
@@ -38,10 +37,10 @@ public class ServiceUser implements GenericDAO<User, UUID> {
         repositoryUser.deleteAll();
     }
 
-    public List<User> nameContaining(String name) { return repositoryUser.findByNameContainingIgnoreCaseOrderByNameAsc(name); }
+    public List<User> userNameContaining(String name) { return repositoryUser.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(name); }
     public Optional<User> retrieveOptional(UUID id) { return repositoryUser.findById(id); }
-    public Optional<User> retrieveOptionalByNome(String User) { return repositoryUser.findByName(User); }
-    public boolean isNameValid(String value) {
-        return repositoryUser.existsByName(value);
+    public Optional<User> retrieveOptionalByUserName(String User) { return repositoryUser.findByUsername(User); }
+    public boolean isUserNameValid(String value) {
+        return repositoryUser.existsByUsername(value);
     }
 }

@@ -3,6 +3,7 @@ package com.institutohidrografico.application.controller;
 import com.institutohidrografico.application.persistence.dto.request.DTORequestUser;
 import com.institutohidrografico.application.persistence.model.User;
 import com.institutohidrografico.application.service.ServiceUser;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +24,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/userMV")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerUserThymeleaf {
 
     private final ServiceUser serviceUser;
-
-    @Autowired
-    public ControllerUserThymeleaf(ServiceUser serviceUser) {
-        this.serviceUser = serviceUser;
-    }
 
     @PostMapping
     public ModelAndView create(@Valid User user, BindingResult bindingResult) {

@@ -4,6 +4,7 @@ import com.institutohidrografico.application.persistence.dto.request.DTORequestC
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseCalled;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import com.institutohidrografico.application.service.ServiceCalled;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value= "/called")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerCalled {
 
     public final ServiceCalled serviceCalled;
-
-    @Autowired
-    private ControllerCalled(ServiceCalled serviceCalled) {
-        this.serviceCalled = serviceCalled;
-    }
 
     @PostMapping
     public ResponseEntity<DTOResponseCalled> create(@RequestBody @Valid DTORequestCalled dtoRequestCalled) {

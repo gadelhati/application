@@ -6,17 +6,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Audited @AuditTable(value = "user_auditoria")
 @Entity @Data @AllArgsConstructor @NoArgsConstructor
 public class User extends GenericEntity {
-    private String name;
-    private Date birthdate;
-    private Gender gender;
-
-    public User(String name) {
-        this.name = name;
-    }
+    private String username;
+    private String password;
 }

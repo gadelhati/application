@@ -24,9 +24,9 @@
             <table class="table table-sm table-striped table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Name</th>
 <!--                    <th>Login</th>-->
-<!--                    <th>User Name</th>-->
+                    <th>User Name</th>
+                    <th>Password</th>
 <!--                    <th>OM</th>-->
 <!--                    <th>Role</th>-->
                     <th></th>
@@ -37,9 +37,10 @@
                     <h2 th:case="null">No entries in the table</h2>
                     <div th:case="*">
                         <tr th:each="user : ${users}">
-                            <td th:text="${user.name}"></td>
 <!--                            <td th:text="${user.login}"></td>-->
-<!--                            <td th:text="${user.username}"></td>-->
+                            <td th:text="${user.username}"></td>
+                            <td></td>
+<!--                            <td th:text="${user.password}"></td>-->
 <!--                            <td th:text="${user.om.nome}"></td>-->
 <!--                            <td th:text="${user.role.nome}"></td>-->
                             <td>

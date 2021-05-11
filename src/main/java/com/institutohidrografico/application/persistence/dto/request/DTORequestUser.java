@@ -10,9 +10,10 @@ import javax.validation.constraints.NotNull;
 public class DTORequestUser {
 
     @NotNull(message = "{name.not.null}") @NotBlank(message = "{name.not.blank}")
-    private String name;
+    private String username;
+    private String password;
 
     public User toObject(){
-        return new User(name);
+        return new User(username, password);
     }
 }
