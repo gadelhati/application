@@ -24,19 +24,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class ConfigSwagger {
     @Value("${BASE_PACKAGE}")
-    private static String BASE_PACKAGE;
+    private String BASE_PACKAGE;
     @Value("${TITLE}")
-    private static String TITLE;
+    private String TITLE;
     @Value("${DESCRIPTION}")
-    private static String DESCRIPTION;
+    private String DESCRIPTION;
     @Value("${VERSION}")
-    private static String VERSION;
+    private String VERSION;
     @Value("${CONTACT_NAME}")
-    private static String CONTACT_NAME;
+    private String CONTACT_NAME;
     @Value("${CONTACT_URL}")
-    private static String CONTACT_URL;
+    private String CONTACT_URL;
     @Value("${CONTACT_EMAIL}")
-    private static String CONTACT_EMAIL;
+    private String CONTACT_EMAIL;
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
