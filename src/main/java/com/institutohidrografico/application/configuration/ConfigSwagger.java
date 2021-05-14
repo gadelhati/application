@@ -1,5 +1,6 @@
 package com.institutohidrografico.application.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -22,13 +23,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class ConfigSwagger {
-    private static final String BASE_PACKAGE = "com.institutohidrografico.application";
-    private static final String TITLE = "Api Documentation";
-    private static final String DESCRIPTION = "API Manager";
-    private static final String VERSION = "1.0.0";
-    private static final String CONTACT_NAME = "Marcelo Gadelha";
-    private static final String CONTACT_URL = "github.com/gadelhati";
-    private static final String CONTACT_EMAIL = "gadelha.ti@gmail.com";
+    @Value("${BASE_PACKAGE}")
+    private static String BASE_PACKAGE;
+    @Value("${TITLE}")
+    private static String TITLE;
+    @Value("${DESCRIPTION}")
+    private static String DESCRIPTION;
+    @Value("${VERSION}")
+    private static String VERSION;
+    @Value("${CONTACT_NAME}")
+    private static String CONTACT_NAME;
+    @Value("${CONTACT_URL}")
+    private static String CONTACT_URL;
+    @Value("${CONTACT_EMAIL}")
+    private static String CONTACT_EMAIL;
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
@@ -44,6 +52,5 @@ public class ConfigSwagger {
                 .version(VERSION)
                 .contact(new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL))
                 .build();
-
     }
 }
