@@ -75,7 +75,7 @@ public class ControllerTutorial {
     @DeleteMapping("/tutorial")
     public ResponseEntity<HttpStatus> deleteAll() {
         try {
-            serviceTutorial.deleteAll();
+            serviceTutorial.delete();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

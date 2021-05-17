@@ -1,8 +1,8 @@
 package com.institutohidrografico.application.service;
 
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import com.institutohidrografico.application.persistence.repository.RepositoryCalled;
-import com.institutohidrografico.application.service.GenericDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.UUID;
  **/
 
 @Service @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ServiceCalled implements GenericDAO<Called, UUID> {
+public class ServiceCalled {
 
     private final RepositoryCalled repositoryCalled;
 
@@ -34,7 +34,7 @@ public class ServiceCalled implements GenericDAO<Called, UUID> {
     public Called update(Called objeto) {   return repositoryCalled.save(objeto);}
     public Called retrieve(UUID id) {   return repositoryCalled.getOne(id);}
     public void delete(UUID id) {  repositoryCalled.deleteById(id);}
-    public void deleteAll() {
+    public void delete() {
         repositoryCalled.deleteAll();
     }
 

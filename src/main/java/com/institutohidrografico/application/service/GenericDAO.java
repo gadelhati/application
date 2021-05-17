@@ -1,5 +1,7 @@
 package com.institutohidrografico.application.service;
 
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +13,12 @@ import java.util.Optional;
  * @link	www.gadelha.eti.br
  **/
 
-public interface GenericDAO<T,K> {
-    public abstract T create(T objeto);
-    public abstract List<T> retrieve();
-    public abstract T retrieve(K id);
-    public abstract Optional<T> retrieveOptional(K id);
-    public abstract T update(T objeto);
+public interface GenericDAO<Q,P,K> {
+    public abstract P create(Q objeto);
+    public abstract List<P> retrieve();
+    public abstract P retrieve(K id);
+//    public abstract Optional<P> retrieveOptional(K id);
+    public abstract P update(Q objeto);
     public abstract void delete(K id);
-    public abstract void deleteAll();
+    public abstract void delete();
 }

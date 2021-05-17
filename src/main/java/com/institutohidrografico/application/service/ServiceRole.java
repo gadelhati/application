@@ -1,5 +1,6 @@
 package com.institutohidrografico.application.service;
 
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.Role;
 import com.institutohidrografico.application.persistence.repository.RepositoryRole;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
  **/
 
 @Service @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ServiceRole implements GenericDAO<Role, UUID> {
+public class ServiceRole {
 
     private RepositoryRole repositoryRole;
 
@@ -33,7 +34,7 @@ public class ServiceRole implements GenericDAO<Role, UUID> {
     public Role update(Role objeto) {   return repositoryRole.save(objeto);}
     public Role retrieve(UUID id) {   return repositoryRole.getOne(id);}
     public void delete(UUID id) {  repositoryRole.deleteById(id);}
-    public void deleteAll() {
+    public void delete() {
         repositoryRole.deleteAll();
     }
 

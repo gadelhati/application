@@ -98,7 +98,7 @@ public class ControllerCalled {
     @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAll() {
         try {
-            serviceCalled.deleteAll();
+            serviceCalled.delete();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

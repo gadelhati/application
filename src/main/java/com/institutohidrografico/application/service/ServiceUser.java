@@ -1,5 +1,6 @@
 package com.institutohidrografico.application.service;
 
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.User;
 import com.institutohidrografico.application.persistence.repository.RepositoryUser;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
  **/
 
 @Service @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ServiceUser implements GenericDAO<User, UUID> {
+public class ServiceUser {
 
     private final RepositoryUser repositoryUser;
 
@@ -33,7 +34,7 @@ public class ServiceUser implements GenericDAO<User, UUID> {
     public User update(User objeto) {   return repositoryUser.save(objeto);}
     public User retrieve(UUID id) {   return repositoryUser.getOne(id);}
     public void delete(UUID id) {  repositoryUser.deleteById(id);}
-    public void deleteAll() {
+    public void delete() {
         repositoryUser.deleteAll();
     }
 

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:bookstore_prd;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT-FALSE
+    url: jdbc:h2:mem:institutohidrografico_prd;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT-FALSE
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -13,12 +13,20 @@ spring:
   h2:
     conlose:
       enable: false
-  devtools:
-    restart:
-      enabled: false
-    livereload:
-      #      enabled: false
-      level:
-        br:
-          eti:
-            gadelha: INFO
+#  devtools:
+#    restart:
+#      enabled: false
+#    livereload:
+#      #      enabled: false
+#      level:
+#        br:
+#          eti:
+#            gadelha: INFO
+logging:
+  level:
+    com:
+      institutohidrografico:
+        application: INFO
+jwt:
+  secret: institutohidrografico
+  validity: 18000

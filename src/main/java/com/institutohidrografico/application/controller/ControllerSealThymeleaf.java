@@ -1,7 +1,6 @@
 package com.institutohidrografico.application.controller;
 
 import com.institutohidrografico.application.persistence.dto.request.DTORequestSeal;
-import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.service.ServiceSeal;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +29,11 @@ public class ControllerSealThymeleaf {
     private final ServiceSeal serviceSeal;
 
     @PostMapping
-    public ModelAndView create(@Valid Seal seal, BindingResult bindingResult) {
+    public ModelAndView create(@Valid DTORequestSeal seal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return add(seal);
         }
         serviceSeal.create(seal);
-        return findAll();
-    }
-    @PostMapping("/createDTO")
-    public ModelAndView create(@Valid DTORequestSeal seal, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return add(seal.toObject());
-        }
-        serviceSeal.create(seal.toObject());
         return findAll();
     }
     @GetMapping
@@ -51,10 +42,10 @@ public class ControllerSealThymeleaf {
     }
     @GetMapping("/update/{id}")
     public ModelAndView update(@PathVariable("id") UUID id) {
-        return add(serviceSeal.retrieve(id));
+        return null;//add(new DTORequestSeal().toObject(serviceSeal.retrieve(id)));
     }
     @GetMapping("/add")
-    public ModelAndView add(Seal seal) {
+    public ModelAndView add(DTORequestSeal seal) {
         return new ModelAndView("sealADD").addObject("seal", seal);
     }
     @GetMapping("/delete/{id}")

@@ -98,7 +98,7 @@ public class ControllerRole {
     @DeleteMapping("/role")
     public ResponseEntity<HttpStatus> deleteAll() {
         try {
-            serviceRole.deleteAll();
+            serviceRole.delete();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

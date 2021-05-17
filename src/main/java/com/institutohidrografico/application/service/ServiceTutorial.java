@@ -1,5 +1,6 @@
 package com.institutohidrografico.application.service;
 
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.Tutorial;
 import com.institutohidrografico.application.persistence.repository.RepositoryTutorial;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.UUID;
  **/
 
 @Service @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ServiceTutorial implements GenericDAO<Tutorial, UUID> {
+public class ServiceTutorial {
 
     private final RepositoryTutorial tutorialRepository;
 
@@ -37,7 +38,7 @@ public class ServiceTutorial implements GenericDAO<Tutorial, UUID> {
     public void delete(UUID id) {
         tutorialRepository.deleteById(id);
     }
-    public void deleteAll() {
+    public void delete() {
         tutorialRepository.deleteAll();
     }
 

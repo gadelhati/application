@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value= "/")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ControllerRaiz {
+public class ControllerRoot {
 
     private final ServiceTutorial serviceTutorial;
 
