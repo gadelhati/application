@@ -31,22 +31,20 @@ public class Seal extends GenericEntity implements Serializable, GenericInterfac
     private boolean broken;
 
     @Override
+    public Seal create() {
+        Seal newInstance = new Seal();
+        newInstance.update(this);
+        return newInstance;
+    }
+    @Override
     public UUID retrieve(){
         return this.getId();
     }
-
     @Override
     public Seal update(Seal source) {
         this.number = source.getNumber();
         this.color = source.getColor();
         this.broken = source.isBroken();
         return source;
-    }
-
-    @Override
-    public Seal create() {
-        Seal newInstance = new Seal();
-        newInstance.update(this);
-        return newInstance;
     }
 }

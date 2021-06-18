@@ -30,12 +30,12 @@ public abstract class GenericController<T extends GenericInterface<T>> {
     }
     @GetMapping("")
     public ResponseEntity<Page<T>> getPage(Pageable pageable){
-        return ResponseEntity.ok(service.getPage(pageable));
+        return ResponseEntity.ok(service.retrieve(pageable));
     }
     @GetMapping("/{id}")
     public ResponseEntity<T> retrieve(@PathVariable UUID id){
         try {
-            return new ResponseEntity<>(service.get(id), HttpStatus.FOUND);
+            return new ResponseEntity<>(service.retrieve(id), HttpStatus.FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
