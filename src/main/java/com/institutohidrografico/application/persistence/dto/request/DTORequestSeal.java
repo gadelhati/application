@@ -6,10 +6,12 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 public class DTORequestSeal {
 
+    private UUID id;
     @NotNull(message = "{number.not.null}") @NotBlank(message = "{number.not.blank}") @UniqueSealNumber
     private String number;
     private String color;
@@ -17,6 +19,6 @@ public class DTORequestSeal {
     private boolean broken;
 
     public Seal toObject(){
-        return new Seal(number, color, broken);
+        return new Seal(id, number, color, broken);
     }
 }
