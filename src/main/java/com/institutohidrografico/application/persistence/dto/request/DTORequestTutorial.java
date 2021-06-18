@@ -1,7 +1,6 @@
 package com.institutohidrografico.application.persistence.dto.request;
 
 import com.institutohidrografico.application.exception.annotation.UniqueTitleTutorial;
-import com.institutohidrografico.application.persistence.model.Audit;
 import com.institutohidrografico.application.persistence.model.Tutorial;
 import lombok.Getter;
 

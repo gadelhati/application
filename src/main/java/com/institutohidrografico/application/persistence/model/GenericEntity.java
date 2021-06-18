@@ -7,8 +7,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+/**
+ * @author	Marcelo Ribeiro Gadelha
+ * @mail	marcelo.gadelha@marinha.mil.br
+ * @link	www.gadelha.eti.br
+ **/
 
 @Data
 @MappedSuperclass
@@ -21,9 +27,13 @@ public abstract class GenericEntity implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private UUID id;
     @CreationTimestamp
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
     @UpdateTimestamp
-    private Timestamp editedAt;
-//    @Embedded
-//    private Audit audit = new Audit();
+    private LocalDateTime updatedAt;
+    @PrePersist
+    public void preCreate() { createdAt = LocalDateTime.now();}
+    @PostUpdate
+    public void postUpdate() { updatedAt = LocalDateTime.now();}
+    @PreRemove
+    public void preRemove() { }
 }

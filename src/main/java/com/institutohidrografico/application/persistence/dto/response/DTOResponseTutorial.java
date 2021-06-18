@@ -1,6 +1,5 @@
 package com.institutohidrografico.application.persistence.dto.response;
 
-import com.institutohidrografico.application.persistence.model.Audit;
 import com.institutohidrografico.application.persistence.model.Tutorial;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

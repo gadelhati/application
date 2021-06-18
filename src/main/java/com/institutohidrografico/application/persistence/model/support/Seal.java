@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
@@ -22,12 +21,8 @@ import java.util.UUID;
 
 @Audited @AuditTable(value = "seal_auditoria")
 @Entity @Table @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(callSuper = false) @Data
-public class Seal /*extends GenericEntity*/ implements Serializable, GenericInterface<Seal> {
+public class Seal extends GenericEntity implements Serializable, GenericInterface<Seal> {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
     @Column
     private String number;
     @Column
@@ -37,7 +32,7 @@ public class Seal /*extends GenericEntity*/ implements Serializable, GenericInte
 
     @Override
     public UUID retrieve(){
-        return this.id;
+        return this.getId();
     }
 
     @Override
