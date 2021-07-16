@@ -12,7 +12,7 @@ import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
@@ -31,7 +31,7 @@ public abstract class GenericEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     @PrePersist
-    public void preCreate() { createdAt = LocalDateTime.now();}
+    public void prePersist() { createdAt = LocalDateTime.now();}
     @PostUpdate
     public void postUpdate() { updatedAt = LocalDateTime.now();}
     @PreRemove

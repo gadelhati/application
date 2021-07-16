@@ -1,104 +1,84 @@
-package com.institutohidrografico.application.support.called.controller;
+package com.institutohidrografico.application.controller;
 
 import com.institutohidrografico.application.persistence.dto.request.DTORequestCalled;
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseCalled;
-import com.institutohidrografico.application.persistence.model.support.Called;
+import com.institutohidrografico.application.persistence.repository.RepositoryCalled;
 import com.institutohidrografico.application.service.ServiceCalled;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
 @RestController
-@RequestMapping(value= "/called")
+@RequestMapping("/called")
 @CrossOrigin(origins = "*", maxAge = 3600)
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ControllerCalled {
 
-    public final ServiceCalled serviceCalled;
+    private final ServiceCalled service;
 
-    @PostMapping
-    public ResponseEntity<DTOResponseCalled> create(@RequestBody @Valid DTORequestCalled dtoRequestCalled) {
+    public ControllerCalled(RepositoryCalled repository) {
+        this.service = new ServiceCalled(repository) {};
+    }
+
+    @PostMapping("") //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<DTOResponseCalled> create(@RequestBody @Valid DTORequestCalled created){
         try {
-            final Called called = serviceCalled.create(dtoRequestCalled.toObject());
-            return new ResponseEntity<>(DTOResponseCalled.toDTO(called), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.create(created), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping //@PreAuthorize("hasAnyCalled('ROLE_ADMIN')")
-    public ResponseEntity<List<Called>> retrieveAll(@RequestParam(required = false) String number) {
-        try {
-            final List<Called> calleds = new ArrayList<>();
-            if (number == null)
-                serviceCalled.retrieve().forEach(calleds::add);
-            else
-                serviceCalled.numberContaining(number).forEach(calleds::add);
-            if (calleds.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(calleds, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("")
+    public ResponseEntity<Page<DTOResponseCalled>> retrieve(Pageable pageable){
+        return new ResponseEntity<>(service.retrieve(pageable), HttpStatus.FOUND);
     }
-    //    @GetMapping( value = "/called/nome/{nome}" ) //@PreAuthorize("hasAnyCalled('ROLE_ADMIN')")
-//    public ResponseEntity<Called> retrieveByName(@PathVariable("nome") String Called) {
-//        Optional<Called> objeto = service.retrieveOptionalByNome(Called);
-//        if (objeto.isPresent()) {
-//            return new ResponseEntity<>(objeto.get(), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-    @GetMapping("/{id}") //@PreAuthorize("hasAnyCalled('Called_ADMIN')")
-    public ResponseEntity<DTOResponseCalled> retrieve(@PathVariable("id") UUID id) {
-        final Optional<Called> called = serviceCalled.retrieveOptional(id);
-        if (called.isPresent()) {
-            return new ResponseEntity<>(DTOResponseCalled.toDTO(called.get()), HttpStatus.FOUND);
-        } else {
+    @GetMapping("/{id}")
+    public ResponseEntity<DTOResponseCalled> retrieve(@PathVariable UUID id){
+        try {
+            return new ResponseEntity<>(service.retrieve(id), HttpStatus.FOUND);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-//    @PutMapping("/called/{id}")
-//    public ResponseEntity<HttpStatus> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestCalled dtoRequestCalled) {
-//        Optional<Called> busca = serviceCalled.retrieveOptional(id);
-//        if (busca.isPresent()) {
-//            busca = Optional.ofNullable(dtoRequestCalled.toObject());
-//            busca.get().setId(id);
-//            serviceCalled.create(busca.get());
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping("/source")
+    public ResponseEntity<Page<DTOResponseCalled>> retrieveSource(Pageable pageable, @RequestParam(required = false) String q){
+        try {
+            return new ResponseEntity<>(service.retrieveSource(pageable, q), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<DTOResponseCalled> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestCalled updated){
+        try {
+            return new ResponseEntity<>(service.update(id, updated), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") UUID id) {
-        final Optional<Called> tutorial = serviceCalled.retrieveOptional(id);
-        if (tutorial.isPresent()) {
-            serviceCalled.delete(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+    public ResponseEntity<HttpStatus> delete(@PathVariable UUID id){
+        try {
+            service.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping
-    public ResponseEntity<HttpStatus> deleteAll() {
+    @DeleteMapping("")
+    public ResponseEntity<HttpStatus> delete(){
         try {
-            serviceCalled.delete();
+            service.delete();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

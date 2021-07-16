@@ -1,47 +1,74 @@
 package com.institutohidrografico.application.service;
 
-import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
+import com.institutohidrografico.application.persistence.dto.request.DTORequestUser;
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseUser;
 import com.institutohidrografico.application.persistence.model.User;
 import com.institutohidrografico.application.persistence.repository.RepositoryUser;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
-@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Service
 public class ServiceUser {
 
-    private final RepositoryUser repositoryUser;
+    private final RepositoryUser repository;
 
-    public User create(User objeto) {  return repositoryUser.save(objeto);}
-    public List<User> retrieve() {
-//        if (serviceUser.getCurrentUser().getUser().getNome().equalsIgnoreCase("User_ADMIN")) {
-        return repositoryUser.findAll();
-//        }else {
-//            return repositorio.findByNomeNotContains("User_ADMIN");
-//        }
-
+    public ServiceUser(RepositoryUser repository) {
+        this.repository = repository;
     }
-    public User update(User objeto) {   return repositoryUser.save(objeto);}
-    public User retrieve(UUID id) {   return repositoryUser.getOne(id);}
-    public void delete(UUID id) {  repositoryUser.deleteById(id);}
+
+    public DTOResponseUser create(DTORequestUser created){
+//        User user = DTORequestUser.toModel(created);
+        return DTOResponseUser.toDTO(repository.save(created.toObject()));
+    }
+    public Page<DTOResponseUser> retrieve(Pageable pageable){
+        List<DTOResponseUser> list = new ArrayList<>();
+        for(User user: repository.findAll()) {
+            list.add(DTOResponseUser.toDTO(user));
+        }
+        return new PageImpl<DTOResponseUser>(list, pageable, list.size());
+    }
+    public DTOResponseUser retrieve(UUID id){
+        return DTOResponseUser.toDTO(repository.findById(id).get());
+    }
+    public Page<DTOResponseUser> retrieveSource(Pageable pageable, String source){
+        final List<DTOResponseUser> list = new ArrayList<>();
+        if (source == null) {
+            for (User user : repository.findAll()) {
+                list.add(DTOResponseUser.toDTO(user));
+            }
+        } else {
+            for (User user : repository.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
+                list.add(DTOResponseUser.toDTO(user));
+            }
+        }
+        return new PageImpl<DTOResponseUser>(list, pageable, list.size());
+    }
+    public DTOResponseUser update(UUID id, DTORequestUser updated){
+        User user = repository.findById(id).get();
+        user.setUsername(updated.getUsername());
+        user.setPassword(updated.getPassword());
+        return DTOResponseUser.toDTO(repository.save(user));
+    }
+    public void delete(UUID id){
+        repository.deleteById(id);
+    }
     public void delete() {
-        repositoryUser.deleteAll();
-    }
+        repository.deleteAll();
+    };
 
-    public List<User> userNameContaining(String name) { return repositoryUser.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(name); }
-    public Optional<User> retrieveOptional(UUID id) { return repositoryUser.findById(id); }
-    public Optional<User> retrieveOptionalByUserName(String User) { return repositoryUser.findByUsername(User); }
-    public boolean isUserNameValid(String value) {
-        return repositoryUser.existsByUsername(value);
+    public boolean isNameValid(String value) {
+        return repository.existsByUserName(value);
     }
 }

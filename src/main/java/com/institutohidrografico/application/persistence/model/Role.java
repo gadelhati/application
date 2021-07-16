@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 

@@ -4,8 +4,9 @@ import com.institutohidrografico.application.persistence.dto.request.DTORequestS
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
 import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.persistence.repository.RepositorySeal;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,63 +15,61 @@ import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
-@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ServiceSeal implements GenericDAO<DTORequestSeal, DTOResponseSeal, UUID> {
+@Service
+public class ServiceSeal {
 
-    private final RepositorySeal repositorySeal;
+    private final RepositorySeal repository;
 
-    @Override
-    public DTOResponseSeal create(DTORequestSeal value) {
-        return DTOResponseSeal.toDTO(repositorySeal.save(value.toObject()));
+    public ServiceSeal(RepositorySeal repository) {
+        this.repository = repository;
     }
-    @Override
-    public List<DTOResponseSeal> retrieve() {
+
+    public DTOResponseSeal create(DTORequestSeal created){
+//        Seal seal = DTORequestSeal.toObject(created);
+        return DTOResponseSeal.toDTO(repository.save(created.toObject()));
+    }
+    public Page<DTOResponseSeal> retrieve(Pageable pageable){
         List<DTOResponseSeal> list = new ArrayList<>();
-        for(Seal seal:repositorySeal.findAll()) {
+        for(Seal seal: repository.findAll()) {
             list.add(DTOResponseSeal.toDTO(seal));
         }
-        return list;
+        return new PageImpl<DTOResponseSeal>(list, pageable, list.size());
     }
-    @Override
-    public DTOResponseSeal retrieve(UUID id) {
-        if(repositorySeal.existsById(id)) {
-            return DTOResponseSeal.toDTO(repositorySeal.findById(id).get());
+    public DTOResponseSeal retrieve(UUID id){
+        return DTOResponseSeal.toDTO(repository.findById(id).get());
+    }
+    public Page<DTOResponseSeal> retrieveSource(Pageable pageable, String source){
+        final List<DTOResponseSeal> list = new ArrayList<>();
+        if (source == null) {
+            for (Seal seal : repository.findAll()) {
+                list.add(DTOResponseSeal.toDTO(seal));
+            }
         } else {
-            return null;
+            for (Seal seal : repository.findByNumberContainingIgnoreCaseOrderByNumberAsc(source)) {
+                list.add(DTOResponseSeal.toDTO(seal));
+            }
         }
+        return new PageImpl<DTOResponseSeal>(list, pageable, list.size());
     }
-    @Override
-    public DTOResponseSeal update(DTORequestSeal value) {
-        if(repositorySeal.existsById(value.toObject().getId())) {
-            return DTOResponseSeal.toDTO(repositorySeal.save(value.toObject()));
-        } else {
-            return null;
-        }
+    public DTOResponseSeal update(UUID id, DTORequestSeal updated){
+        Seal seal = repository.findById(id).get();
+        seal.setNumber(updated.getNumber());
+        seal.setBroken(updated.isBroken());
+        seal.setColor(updated.getColor());
+        return DTOResponseSeal.toDTO(repository.save(seal));
     }
-    @Override
+    public void delete(UUID id){
+        repository.deleteById(id);
+    }
     public void delete() {
-        repositorySeal.deleteAll();
-    }
-    @Override
-    public void delete(UUID id) {
-        if(repositorySeal.existsById(id)) {
-            repositorySeal.deleteById(id);
-        }
-    }
+        repository.deleteAll();
+    };
 
-    public List<Seal> brokenFalse() { return repositorySeal.findByBrokenFalse(); }
     public boolean isNumberValid(String value) {
-        return repositorySeal.existsByNumber(value);
-    }
-    public List<DTOResponseSeal> retrieveByNumber(String value) {
-        List<DTOResponseSeal> list = new ArrayList<>();
-        for(Seal seal:repositorySeal.findByNumberContainingIgnoreCaseOrderByNumberAsc(value)) {
-            list.add(DTOResponseSeal.toDTO(seal));
-        }
-        return list;
+        return repository.existsByNumber(value);
     }
 }

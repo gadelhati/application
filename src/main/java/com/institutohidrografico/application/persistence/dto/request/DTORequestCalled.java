@@ -1,12 +1,17 @@
 package com.institutohidrografico.application.persistence.dto.request;
 
 import com.institutohidrografico.application.persistence.model.User;
-import com.institutohidrografico.application.persistence.model.support.Seal;
 import com.institutohidrografico.application.persistence.model.support.Called;
+import com.institutohidrografico.application.persistence.model.support.Seal;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
+/**
+ * @author	Marcelo Ribeiro Gadelha
+ * @mail	gadelha.ti@gmail.com
+ * @link	www.gadelha.eti.br
+ **/
 
 @Getter
 public class DTORequestCalled {

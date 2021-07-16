@@ -1,47 +1,80 @@
 package com.institutohidrografico.application.service;
 
-import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
+import com.institutohidrografico.application.persistence.dto.request.DTORequestCalled;
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseCalled;
 import com.institutohidrografico.application.persistence.model.support.Called;
 import com.institutohidrografico.application.persistence.repository.RepositoryCalled;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
-@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Service
 public class ServiceCalled {
 
-    private final RepositoryCalled repositoryCalled;
+    private final RepositoryCalled repository;
 
-    public Called create(Called objeto) {  return repositoryCalled.save(objeto);}
-    public List<Called> retrieve() {
-//        if (serviceUser.getCurrentUser().getService().getNome().equalsIgnoreCase("Service_ADMIN")) {
-        return repositoryCalled.findAll();
-//        }else {
-//            return repositorio.findByNomeNotContains("Service_ADMIN");
-//        }
-
+    public ServiceCalled(RepositoryCalled repository) {
+        this.repository = repository;
     }
-    public Called update(Called objeto) {   return repositoryCalled.save(objeto);}
-    public Called retrieve(UUID id) {   return repositoryCalled.getOne(id);}
-    public void delete(UUID id) {  repositoryCalled.deleteById(id);}
+
+    public DTOResponseCalled create(DTORequestCalled created){
+//        Called classe = DTORequestCalled.toObject(created);
+        return DTOResponseCalled.toDTO(repository.save(created.toObject()));
+    }
+    public Page<DTOResponseCalled> retrieve(Pageable pageable){
+        List<DTOResponseCalled> list = new ArrayList<>();
+        for(Called classe: repository.findAll()) {
+            list.add(DTOResponseCalled.toDTO(classe));
+        }
+        return new PageImpl<DTOResponseCalled>(list, pageable, list.size());
+    }
+    public DTOResponseCalled retrieve(UUID id){
+        return DTOResponseCalled.toDTO(repository.findById(id).get());
+    }
+    public Page<DTOResponseCalled> retrieveSource(Pageable pageable, String source){
+        final List<DTOResponseCalled> list = new ArrayList<>();
+        if (source == null) {
+            for (Called classe : repository.findAll()) {
+                list.add(DTOResponseCalled.toDTO(classe));
+            }
+        } else {
+            for (Called classe : repository.findByNumberContainingIgnoreCaseOrderByNumberAsc(source)) {
+                list.add(DTOResponseCalled.toDTO(classe));
+            }
+        }
+        return new PageImpl<DTOResponseCalled>(list, pageable, list.size());
+    }
+    public DTOResponseCalled update(UUID id, DTORequestCalled updated){
+        Called called = repository.findById(id).get();
+        called.setEntrance(updated.getEntrance());
+        called.setExit(updated.getExit());
+        called.setDeliveryman(updated.getDeliveryman());
+        called.setReceiver(updated.getReceiver());
+        called.setDelivery(updated.getDelivery());
+        called.setReceivement(updated.getReceivement());
+        called.setNumber(updated.getNumber());
+        called.setHost(updated.getHost());
+        return DTOResponseCalled.toDTO(repository.save(called));
+    }
+    public void delete(UUID id){
+        repository.deleteById(id);
+    }
     public void delete() {
-        repositoryCalled.deleteAll();
-    }
+        repository.deleteAll();
+    };
 
-    public List<Called> numberContaining(String name) { return repositoryCalled.findByNumberContainingIgnoreCaseOrderByNumberAsc(name); }
-    public Optional<Called> retrieveOptional(UUID id) { return repositoryCalled.findById(id); }
-    public Optional<Called> retrieveOptionalByNumber(String number) { return repositoryCalled.findByNumber(number); }
-    public boolean isNameValid(String value) {
-        return repositoryCalled.existsByNumber(value);
+    public boolean isNumberValid(String value) {
+        return repository.existsByNumber(value);
     }
 }

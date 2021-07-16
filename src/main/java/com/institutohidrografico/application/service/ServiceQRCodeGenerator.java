@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+/**
+ * @author	Marcelo Ribeiro Gadelha
+ * @mail	gadelha.ti@gmail.com
+ * @link	www.gadelha.eti.br
+ **/
+
 public class ServiceQRCodeGenerator {
 
     public static void generateQRCodeImage(String text, int width, int height, String filePath)

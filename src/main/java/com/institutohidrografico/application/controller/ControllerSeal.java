@@ -2,62 +2,86 @@ package com.institutohidrografico.application.controller;
 
 import com.institutohidrografico.application.persistence.dto.request.DTORequestSeal;
 import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
+import com.institutohidrografico.application.persistence.repository.RepositorySeal;
 import com.institutohidrografico.application.service.ServiceSeal;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
 @RestController
-@RequestMapping(value= "/seal")
+@RequestMapping("/seal")
 @CrossOrigin(origins = "*", maxAge = 3600)
-@AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ControllerSeal implements ControllerGeneric<DTORequestSeal, DTOResponseSeal, UUID> {
+public class ControllerSeal {
 
-    public final ServiceSeal serviceSeal;
+    private final ServiceSeal service;
 
-    @PostMapping @ResponseStatus(HttpStatus.CREATED)
-    public DTOResponseSeal create(@RequestBody @Valid DTORequestSeal dtoRequestSeal) {
-        return serviceSeal.create(dtoRequestSeal);
+    public ControllerSeal(RepositorySeal repository) {
+        this.service = new ServiceSeal(repository) {};
     }
 
-    @GetMapping @ResponseStatus(HttpStatus.FOUND)
-    public List<DTOResponseSeal> retrieve() {
-        return serviceSeal.retrieve();
+    @PostMapping("") //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<DTOResponseSeal> create(@RequestBody @Valid DTORequestSeal created){
+        try {
+            return new ResponseEntity<>(service.create(created), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
-    @GetMapping("/{id}") @ResponseStatus(HttpStatus.FOUND) //@PreAuthorize("hasAnySeal('ROLE_ADMIN')")
-    public DTOResponseSeal retrieve(@PathVariable("id") UUID id) {
-        return serviceSeal.retrieve(id);
+    @GetMapping("")
+    public ResponseEntity<Page<DTOResponseSeal>> retrieve(Pageable pageable){
+        return new ResponseEntity<>(service.retrieve(pageable), HttpStatus.FOUND);
     }
-
-    @GetMapping("/name/{name}") @ResponseStatus(HttpStatus.FOUND)
-    public List<DTOResponseSeal> retrieveByName(@PathVariable("name") String name) {
-        return serviceSeal.retrieveByNumber(name);
+    @GetMapping("/{id}")
+    public ResponseEntity<DTOResponseSeal> retrieve(@PathVariable UUID id){
+        try {
+            return new ResponseEntity<>(service.retrieve(id), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
-    @PutMapping("/{id}") @ResponseStatus(HttpStatus.OK)
-    public DTOResponseSeal update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestSeal dtoRequestSeal) {
-        return serviceSeal.update(dtoRequestSeal);
+    @GetMapping("/source")
+    public ResponseEntity<Page<DTOResponseSeal>> retrieveSource(Pageable pageable, @RequestParam(required = false) String q){
+        try {
+            return new ResponseEntity<>(service.retrieveSource(pageable, q), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
-    @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") UUID id) {
-        serviceSeal.delete(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<DTOResponseSeal> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestSeal updated){
+        try {
+            return new ResponseEntity<>(service.update(id, updated), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
-    @DeleteMapping @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete() {
-        serviceSeal.delete();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable UUID id){
+        try {
+            service.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("")
+    public ResponseEntity<HttpStatus> delete(){
+        try {
+            service.delete();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -14,9 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	gadelha.ti@gmail.com
- * @since	19/06/2020
- * @version 1.0
+ * @mail	marcelo.gadelha@marinha.mil.br
  * @link	www.gadelha.eti.br
  **/
 

@@ -1,47 +1,73 @@
 package com.institutohidrografico.application.service;
 
-import com.institutohidrografico.application.persistence.dto.response.DTOResponseSeal;
+import com.institutohidrografico.application.persistence.dto.request.DTORequestRole;
+import com.institutohidrografico.application.persistence.dto.response.DTOResponseRole;
 import com.institutohidrografico.application.persistence.model.Role;
 import com.institutohidrografico.application.persistence.repository.RepositoryRole;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author	Marcelo Ribeiro Gadelha
- * @mail	marcelo.gadelha@marinha.mil.br
+ * @mail	gadelha.ti@gmail.com
  * @link	www.gadelha.eti.br
  **/
 
-@Service @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Service
 public class ServiceRole {
 
-    private RepositoryRole repositoryRole;
+    private final RepositoryRole repository;
 
-    public Role create(Role objeto) {  return repositoryRole.save(objeto);}
-    public List<Role> retrieve() {
-//        if (serviceUser.getCurrentUser().getRole().getNome().equalsIgnoreCase("ROLE_ADMIN")) {
-            return repositoryRole.findAll();
-//        }else {
-//            return repositorio.findByNomeNotContains("ROLE_ADMIN");
-//        }
-
+    public ServiceRole(RepositoryRole repository) {
+        this.repository = repository;
     }
-    public Role update(Role objeto) {   return repositoryRole.save(objeto);}
-    public Role retrieve(UUID id) {   return repositoryRole.getOne(id);}
-    public void delete(UUID id) {  repositoryRole.deleteById(id);}
+
+    public DTOResponseRole create(DTORequestRole created){
+//        Role role = MAPPER_ROLE.toObject(created);
+        return DTOResponseRole.toDTO(repository.save(created.toObject()));
+    }
+    public Page<DTOResponseRole> retrieve(Pageable pageable){
+        List<DTOResponseRole> list = new ArrayList<>();
+        for(Role role: repository.findAll()) {
+            list.add(DTOResponseRole.toDTO(role));
+        }
+        return new PageImpl<DTOResponseRole>(list, pageable, list.size());
+    }
+    public DTOResponseRole retrieve(UUID id){
+        return DTOResponseRole.toDTO(repository.findById(id).get());
+    }
+    public Page<DTOResponseRole> retrieveSource(Pageable pageable, String source){
+        final List<DTOResponseRole> list = new ArrayList<>();
+        if (source == null) {
+            for (Role role : repository.findAll()) {
+                list.add(DTOResponseRole.toDTO(role));
+            }
+        } else {
+            for (Role role : repository.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
+                list.add(DTOResponseRole.toDTO(role));
+            }
+        }
+        return new PageImpl<DTOResponseRole>(list, pageable, list.size());
+    }
+    public DTOResponseRole update(UUID id, DTORequestRole updated){
+        Role role = repository.findById(id).get();
+        role.setName(updated.getName());
+        return DTOResponseRole.toDTO(repository.save(role));
+    }
+    public void delete(UUID id){
+        repository.deleteById(id);
+    }
     public void delete() {
-        repositoryRole.deleteAll();
-    }
+        repository.deleteAll();
+    };
 
-    public List<Role> nameContaining(String name) { return repositoryRole.findByNameContainingIgnoreCaseOrderByNameAsc(name); }
-    public Optional<Role> retrieveOptional(UUID id) { return repositoryRole.findById(id); }
-    public Optional<Role> retrieveOptionalByNome(String role) { return repositoryRole.findByName(role); }
     public boolean isNameValid(String value) {
-        return repositoryRole.existsByName(value);
+        return repository.existsByName(value);
     }
 }

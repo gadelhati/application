@@ -1,0 +1,75 @@
+*	FM 12 -XIV SYNOP
++	FM 13 -XIV SHIP
+$	ABBREVIATED
+|	REDUCED
+
+Seção 0
+	—	Symbolic figure group
+	Contents	Data for reporting identification (type, ship’s call sign/buoy identifier, date, time, location) and units of wind speed used
+	
+*+$|		MiMiMjMj
+ +$|		{ D.... D**** or A1bwnbnbnb** }
+*+$|		YYGGiw
+*+$|		{ IIiii* or 99LaLaLa QcLoLoLoLo**** }
+		MMMULaULo***
+		h0h0h0h0im***
+Seção1
+	—	Symbolic figure group
+	Contents	Data for global exchange which are common to the SYNOP, SHIP and SYNOP MOBIL code forms
+	
+*+$|		iRixhVV
+*+$|		Nddff (00fff)
+*+$|		1snTTT
+*+		{ 2snTdTdTd or 29UUU }
+*+		3PoPoPoPo
+*+$|		{ 4PPPP or 4a3hhh }
+*+		5appp
+*		6RRRtR
+*+$|		{ 7wwWlW2 or 7wawaWa1Wa2 }
+*+$		8NhCLCMCH
+*+		9GGgg
+Seção 2
+	222	Symbolic figure group
+	Contents	Maritime data for global exchange pertaining to a sea, or to a coastal station
+	
+*+$|		222Dsvs
+*+		(0ssTwTwTw)
+*+		(1PwaPwaHwaHwa)
+*+		(2PwPwHwHw)
+		(
+*+			(3dw1dw1dw2dw2)
+*+			(4Pw1Pw1Hw1Hw1)
+*+			(5Pw2Pw2Hw2Hw2)
+		)
+ +		( { 6IsEsEsRs or ICING + plain language } )
+ +		(70HwaHwaHwa)
+ +		(8swTbTbTb)
+ +		( ICE + { ciSibiDizi or plain language } )
+Seção 3
+	333	Symbolic figure group
+	Contents	Data for regional exchange
+	
+		333
+		(0 . . . .)
+*+		(1snTxTxTx)
+*+		(2snTnTnTn)
+		(3Ejjj)
+		(4E´sss)
+*+		58/9P24P24P24 ~= (5j1j2j3j4 (j5j6j7j8j9))
+*		(6RRRtR)
+*		(7R24RR24RR24RR24)
+*		(8NsChshs)
+		(9SPSPspsp)
+		(80000 (0 . . . .) (1 . . . .) . . . .)
+SECTION 4
+	444	Symbolic figure group
+	Contents	Data for national use for clouds with base below station level, included by national decision
+	
+		444
+		N´C´H´H´Ct
+SECTION 5
+	555	Symbolic figure group
+	Contents	Data for national use
+	
+		555
+		Groups to be developed nationally
