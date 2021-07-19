@@ -18,9 +18,10 @@ import java.util.Date;
  * @link	www.gadelha.eti.br
  **/
 
-@Audited @AuditTable(value = "audit_vessel")
+@Audited @AuditTable(value = "audit_organization")
 @Entity @Table @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(callSuper = false) @Data
-public class Vessel extends Station {
+public abstract class Organization extends Station {
+    private Organization subordination;
     private String imo;
     private String navalCallsign;
     private String visualCallsign;
