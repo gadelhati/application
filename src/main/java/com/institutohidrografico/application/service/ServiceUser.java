@@ -49,7 +49,7 @@ public class ServiceUser {
                 list.add(DTOResponseUser.toDTO(user));
             }
         } else {
-            for (User user : repository.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
+            for (User user : repository.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(source)) {
                 list.add(DTOResponseUser.toDTO(user));
             }
         }
@@ -69,6 +69,6 @@ public class ServiceUser {
     };
 
     public boolean isNameValid(String value) {
-        return repository.existsByUserName(value);
+        return repository.existsByUsername(value);
     }
 }

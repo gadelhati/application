@@ -13,6 +13,6 @@ import java.util.UUID;
  **/
 
 public interface RepositoryUser extends JpaRepository<User, UUID> {
-    List<User> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
-    boolean existsByUserName(String value);
+    List<User> findByUsernameContainingIgnoreCaseOrderByUsernameAsc(String name);
+    boolean existsByUsername(String value);
 }
