@@ -17,6 +17,7 @@ import java.util.Date;
 
 @Getter @AllArgsConstructor
 public class DTOResponseShipSynop {
+
     @Column(length = 128) //@Pattern(regexp = "[0-2][0-9]|30")
     private String observador;
     @Temporal(TemporalType.TIMESTAMP)
@@ -109,7 +110,7 @@ public class DTOResponseShipSynop {
     private String ind89;
     @Column(length = 128)
     private String fixo555_5;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("ichw")
     private String iChw;
     @Column(length = 128)
     private String iCM;
@@ -121,7 +122,7 @@ public class DTOResponseShipSynop {
     private String iCP;
     @Column(length = 128)
     private String iCQ;
-    @Column(length = 128)@JsonProperty("2snTdTdTdUUU")
+    @Column(length = 128) @JsonProperty("2snTdTdTdUUU")
     private String _2snTdTdTdUUU;
     @Column(length = 128) @JsonProperty("5Pw2Pw2Hw2Hw2")
     private String _5Pw2Pw2Hw2Hw2;

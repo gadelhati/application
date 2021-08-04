@@ -110,28 +110,27 @@ public class ControllerShipSynop {
         return new File(fileName, file.getContentType(), file.getSize());
     }
     public void interpret(String fileName, String fileType, Long fileSize) {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setDateFormat(df);
+        mapper.setDateFormat(simpleDateFormat);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         try {
-            List<DTORequestShipSynop> shipSynopWeb = mapper.readerForListOf(ShipSynop.class).readValue(new java.io.File("./uploads/" + fileName));
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            List<DTORequestShipSynop> dtoRequestShipSynops = mapper.readerForListOf(DTORequestShipSynop.class).readValue(new java.io.File("./uploads/" + fileName));
             DTORequestFile dtoRequestFile = new DTORequestFile(fileName, fileType, fileSize);
             serviceFile.create(dtoRequestFile);
-            for( DTORequestShipSynop shipSynop : shipSynopWeb ) {
-                List<DTOResponseShipSynop> busca = service.retrieveByEstacao(shipSynop.getEstacao());
+            for( DTORequestShipSynop dtoRequestShipSynop : dtoRequestShipSynops ) {
+                List<DTOResponseShipSynop> dtoResponseShipSynops = service.retrieveByEstacao(dtoRequestShipSynop.getEstacao());
                 boolean controle = true;
-                for (DTOResponseShipSynop ss2: busca) {
-                    if (shipSynop.getDataObservacao() != null && ss2.getDataObservacao() != null){
-                        if (simpleDateFormat.format(shipSynop.getDataObservacao()).equals(simpleDateFormat.format(ss2.getDataObservacao())) && shipSynop.getGg().equals(ss2.getGg())) {
+                for (DTOResponseShipSynop dtoResponseShipSynop: dtoResponseShipSynops) {
+                    if (dtoRequestShipSynop.getDataObservacao() != null && dtoResponseShipSynop.getDataObservacao() != null){
+                        if (simpleDateFormat.format(dtoRequestShipSynop.getDataObservacao()).equals(simpleDateFormat.format(dtoResponseShipSynop.getDataObservacao())) && dtoRequestShipSynop.getGg().equals(dtoResponseShipSynop.getGg())) {
                             controle = false;
                         }
                     }
                 }
                 if (controle){
-                    shipSynop.setFile(dtoRequestFile.toObject());
-                    service.create(shipSynop);
+//                    dtoRequestShipSynop.setFile(dtoRequestFile.toObject());
+                    service.create(dtoRequestShipSynop);
                 }
             }
         } catch (JsonGenerationException e) {

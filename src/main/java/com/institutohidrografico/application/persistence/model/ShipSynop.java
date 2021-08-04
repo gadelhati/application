@@ -11,8 +11,8 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import java.util.Date;
 
-@Audited @AuditTable(value = "shipsynopweb_auditoria")
-@Entity @Table//(name="shipsynopweb", schema="shipsynopweb")
+@Audited @AuditTable(value = "shipsynop_auditoria")
+@Entity @Table(name="shipsynop")//, schema="shipsynopweb")
 @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(callSuper = false) @Data
 public class ShipSynop extends GenericEntity {
 
@@ -108,19 +108,19 @@ public class ShipSynop extends GenericEntity {
     private String ind89;
     @Column(length = 128)
     private String fixo555_5;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("ichw")
     private String iChw;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icm")
     private String iCM;
     @Column(length = 128)
     private String cs;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icf")
     private String iCF;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icp")
     private String iCP;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icq")
     private String iCQ;
-    @Column(length = 128)@JsonProperty("2snTdTdTdUUU")
+    @Column(length = 128) @JsonProperty("2snTdTdTdUUU")
     private String _2snTdTdTdUUU;
     @Column(length = 128) @JsonProperty("5Pw2Pw2Hw2Hw2")
     private String _5Pw2Pw2Hw2Hw2;
@@ -282,7 +282,7 @@ public class ShipSynop extends GenericEntity {
     private boolean ship;
     @Column
     private boolean synop;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("ichwiCMCsiCFiCpiCQ")
     private String iChwiCMCsiCFiCpiCQ;
     @Column(length = 128) @JsonProperty("5ind89P24P24P24")
     private String _5ind89P24P24P24;

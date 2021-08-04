@@ -5,6 +5,7 @@ import com.institutohidrografico.application.persistence.model.File;
 import com.institutohidrografico.application.persistence.model.ShipSynop;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.Date;
  * @link	www.gadelha.eti.br
  **/
 
-@Getter @AllArgsConstructor
+@Getter @AllArgsConstructor @NoArgsConstructor
 public class DTORequestShipSynop {
 
     @Column(length = 128) //@Pattern(regexp = "[0-2][0-9]|30")
@@ -113,17 +114,17 @@ public class DTORequestShipSynop {
     private String ind89;
     @Column(length = 128)
     private String fixo555_5;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("ichw")
     private String iChw;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icm")
     private String iCM;
     @Column(length = 128)
     private String cs;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icf")
     private String iCF;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icp")
     private String iCP;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("icq")
     private String iCQ;
     @Column(length = 128)@JsonProperty("2snTdTdTdUUU")
     private String _2snTdTdTdUUU;
@@ -287,7 +288,7 @@ public class DTORequestShipSynop {
     private boolean ship;
     @Column
     private boolean synop;
-    @Column(length = 128)
+    @Column(length = 128) @JsonProperty("ichwiCMCsiCFiCpiCQ")
     private String iChwiCMCsiCFiCpiCQ;
     @Column(length = 128) @JsonProperty("5ind89P24P24P24")
     private String _5ind89P24P24P24;
